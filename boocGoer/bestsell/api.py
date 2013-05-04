@@ -22,65 +22,56 @@ def new_shout(request):
     lng = request.POST['lng']
     booklist = request.POST['booklist']
     bldate = request.POST['bldate']
-
     url = "http://api.nytimes.com/svc/books/v2/lists/" + bldate + "/" + booklist + "?&offset=&sortby=&sortorder=&api-key=1ddfd825a1084dbe50334ad25dd5ddfa:2:67632807"
-
-    # response = urllib2.urlopen(url)
-    # articles = response.read()
-    # print articles
-
-
-
     req = urllib2.Request(url)
     opener = urllib2.build_opener()
     f = opener.open(req)
     articles = json.loads(f.read())
     print articles
-
-
     g=""
-    # f = codecs.open('output.txt', 'w', encoding='utf-8')
     for story in articles["results"]:
-        # f.write(story["title"] + "\n")
         b = 0
         for book in story["isbns"]:
             if b == 0: 
                 try:
-                    # g = g + story["title"] + "\n"
+                    isbn = book["isbn10"]
                     g = g + book["isbn10"] + "\n"
                     b = b + 1
                 except:
-                    g = g + " \n"
-            
-
+                    isbn = ""
+                    g = g + " \n"       
         for book in story["book_details"]: 
             try:
-                # g = g + story["title"] + "\n"
+                title = book["title"]
                 g = g + book["title"] + "\n"
             except:
                 g = g + " \n"
-    # f.close()
+
+        shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate,isbn=isbn,title=title)
+
+        response = {
+            'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
+            'lat': str(shout.lat),
+            'lng': str(shout.lng),
+            'booklist': booklist,
+            'bldate': bldate,
+            'isbn': isbn,
+            'title': title
+        }
+
     print g
 
-    shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate)
+    # shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate)
 
-    response = {
-        'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
-        'lat': str(shout.lat),
-        'lng': str(shout.lng),
-        'booklist': booklist,
-        'bldate': bldate
-    }
+    # response = {
+    #     'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
+    #     'lat': str(shout.lat),
+    #     'lng': str(shout.lng),
+    #     'booklist': booklist,
+    #     'bldate': bldate
+    # }
     
     return HttpResponse(json.dumps(response))
-
-
-
-    # def call_the_articles(url):
-    # #      url = "http://api.nytimes.com/svc/books/v2/lists/" + bldate + "/" + booklist + "?&offset=&sortby=&sortorder=&api-key=1ddfd825a1084dbe50334ad25dd5ddfa:2:67632807"
-    #      return loads(urlopen(url).read()) 
-
-
 
 def get_shouts(request):
     lat = float(request.GET['lat'])
@@ -101,7 +92,9 @@ def get_shouts(request):
             'lat': str(shout.lat),
             'lng': str(shout.lng),
             'booklist': shout.booklist,
-            'bldate': shout.bldate
+            'bldate': shout.bldate,
+            'isbn': shout.isbn,
+            'title': shout.title            
         })
     
     return HttpResponse(json.dumps(response))
