@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Pinshout App{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/shout.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div id="yes-location">
+  
+  <div id="post">
+  
+    <div id="map"><img /></div>
+
+    <div id="shout-form">
+      <form name="shout" id="shout">
+        <p>
+          <label for="author">Your name</label><br />
+          <input type="text" name="author" id="author" />
+        </p>
+        <p>
+          <label for="message">Message</label><br />
+          <textarea name="message" id="message"></textarea>
+        </p>
+        <p class="error"></p>
+        <p>
+          <input type="submit" name="submit" value="Shout!" />
+        </p>
+      </form>
+    </div>
+  
+  </div>
+  
+  <div id="view">
+    
+    <div id="control">
+      <form name="update_radius" id="update_radius">
+        <input type="text" name="radius" id="radius" value="1" />
+        <input type="submit" name="submit" value="Update Radius" />
+      </form>
+    </div>
+    
+    <div id="shouts"></div>
+    
+  </div>
+  
+  <div style="clear:both;"></div>
+
+</div>
+
+<div id="no-location">Ah darn, we couldn't get your location!</div>
+{% endblock %}
