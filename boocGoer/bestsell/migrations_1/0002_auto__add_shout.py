@@ -13,12 +13,10 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('lat', self.gf('django.db.models.fields.DecimalField')(max_digits=10, decimal_places=7)),
             ('lng', self.gf('django.db.models.fields.DecimalField')(max_digits=10, decimal_places=7)),
-            ('booklist', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('bldate', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('author', self.gf('django.db.models.fields.CharField')(max_length=20)),
+            ('message', self.gf('django.db.models.fields.TextField')()),
             ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('date_modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('isbn', self.gf('django.db.models.fields.CharField')(max_length=15, blank=True)),
         ))
         db.send_create_signal(u'bestsell', ['Shout'])
 
@@ -31,15 +29,13 @@ class Migration(SchemaMigration):
     models = {
         u'bestsell.shout': {
             'Meta': {'object_name': 'Shout'},
-            'bldate': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'booklist': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
+            'author': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'date_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'isbn': ('django.db.models.fields.CharField', [], {'max_length': '15', 'blank': 'True'}),
             'lat': ('django.db.models.fields.DecimalField', [], {'max_digits': '10', 'decimal_places': '7'}),
             'lng': ('django.db.models.fields.DecimalField', [], {'max_digits': '10', 'decimal_places': '7'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '80', 'blank': 'True'})
+            'message': ('django.db.models.fields.TextField', [], {})
         }
     }
 

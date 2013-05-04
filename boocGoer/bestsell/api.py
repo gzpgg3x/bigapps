@@ -13,17 +13,17 @@ from datetime import datetime
 def new_shout(request):
     lat = request.POST['lat']
     lng = request.POST['lng']
-    author = request.POST['author']
-    message = request.POST['message']
+    booklist = request.POST['booklist']
+    bldate = request.POST['bldate']
 
-    shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message)
+    shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate)
 
     response = {
         'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
         'lat': str(shout.lat),
         'lng': str(shout.lng),
-        'author': author,
-        'message': message
+        'booklist': booklist,
+        'bldate': bldate
     }
     
     return HttpResponse(json.dumps(response))
@@ -46,8 +46,8 @@ def get_shouts(request):
             'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
             'lat': str(shout.lat),
             'lng': str(shout.lng),
-            'author': shout.author,
-            'message': shout.message
+            'booklist': shout.booklist,
+            'bldate': shout.bldate
         })
     
     return HttpResponse(json.dumps(response))

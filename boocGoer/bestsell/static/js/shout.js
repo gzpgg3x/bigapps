@@ -33,33 +33,33 @@ function new_map(lat,lng) {
 
 function shout_init() {
   $("#shout").submit(function() {
-    var author = $("#author");
-    var message = $("#message");
+    var booklist = $("#booklist");
+    var bldate = $("#bldate");
     
-    if (!author.val()) {
-      form_error(author, "Please enter your name!");
+    if (!booklist.val()) {
+      form_error(booklist, "Please enter your name!");
       return false;
-    } else if (!message.val()) {
-      form_error(message, "Please enter a message!");
+    } else if (!bldate.val()) {
+      form_error(bldate, "Please enter a bldate!");
       return false;
     } else {
       $(".error").hide();
     }
     
-    $.post("/api/shouts/new", { lat: lat, lng: lng, author: author.val(), message: message.val() }, function(data) {
+    $.post("/api/shouts/new", { lat: lat, lng: lng, booklist: booklist.val(), bldate: bldate.val() }, function(data) {
       var new_shout = $.parseJSON(data);
       add_shout(new_shout);
       
-      message.val('');
-      message.focus();
+      bldate.val('');
+      bldate.focus();
     });
     
     return false;
   });
 }
 
-function form_error(input, message) {
-  $(".error").html(message);
+function form_error(input, bldate) {
+  $(".error").html(bldate);
   $(".error").show();
   input.focus();
 }
@@ -85,7 +85,7 @@ function get_shouts(lat, lng, radius) {
 }
 
 function add_shout(shout) {
-  var shout_div = $('<div class="single-shout"><div class="shout-header"><h3>' + shout.author + '</h3></div><div class="shout-info"><p class="date">' + shout.date_created + '</p><p class="coords">(' + shout.lat + ', ' + shout.lng + ')</p></div><div style="clear:both;"></div><p class="message">' + shout.message + '</p></div>');
+  var shout_div = $('<div class="single-shout"><div class="shout-header"><h3>' + shout.booklist + '</h3></div><div class="shout-info"><p class="date">' + shout.date_created + '</p><p class="coords">(' + shout.lat + ', ' + shout.lng + ')</p></div><div style="clear:both;"></div><p class="bldate">' + shout.bldate + '</p></div>');
   $("#shouts").prepend(shout_div);
   
   shout_div.click(function() {

@@ -4,11 +4,14 @@ from datetime import datetime
 class Shout(models.Model):
     lat = models.DecimalField(max_digits=10, decimal_places=7)
     lng = models.DecimalField(max_digits=10, decimal_places=7)
-    author = models.CharField(max_length=20)
-    message = models.TextField()
+    booklist = models.CharField(max_length=50,blank=True)
+    bldate = models.TextField(blank=True)
     
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+
+    title = models.CharField(max_length=80,blank=True)
+    isbn = models.CharField(max_length=15,blank=True)
     
     def __unicode__(self):
-        return "%s: %s" % (self.author, self.message[:20])
+        return "%s: %s" % (self.booklist, self.bldate[:20])
