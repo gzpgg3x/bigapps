@@ -45,7 +45,7 @@
       {% for shout in shouts %}
       <tr>
         <th> {{shout.id}}</th>
-        <th> {{shout.title}}</th>
+        <th> <a href="http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords={{shout.isbn}}" >{{shout.title}}</th>
         <th> <a href="http://catalog.nypl.org/search~S1/?searchtype=i&searcharg={{shout.isbn}}" >{{shout.isbn}}</th>
         <th> {{shout.booklist}}</th>
         <th> {{shout.bldate}}</th>
