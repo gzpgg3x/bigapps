@@ -18,7 +18,6 @@ sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
 @csrf_exempt
 @require_POST
 def new_shout(request):
-    Shout.objects.all().delete()
     lat = request.POST['lat']
     lng = request.POST['lng']
     booklist = request.POST['booklist']
@@ -28,7 +27,7 @@ def new_shout(request):
     opener = urllib2.build_opener()
     f = opener.open(req)
     articles = json.loads(f.read())
-    # print articles
+    print articles
     g=""
     for story in articles["results"]:
         b = 0
@@ -60,7 +59,7 @@ def new_shout(request):
             'title': title
         }
 
-    # print g
+    print g
 
     # shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate)
 
@@ -75,9 +74,7 @@ def new_shout(request):
     return HttpResponse(json.dumps(response))
 
 def get_shouts(request):
-
-    
-
+    shout.objects.all().delete()
     lat = float(request.GET['lat'])
     lng = float(request.GET['lng'])
     radius = float(request.GET['radius'])
@@ -89,8 +86,12 @@ def get_shouts(request):
     
     shouts = Shout.objects.filter(lat__gte=lat_low,lat__lte=lat_high,lng__gte=lng_low,lng__lte=lng_high)[:10000]
     
+    # Entry.objects.all().delete()
+    # Shout.objects.all().delete()
+
     response = []
     for shout in shouts:
+        # response.append({
         response.append({
             'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
             'lat': str(shout.lat),
