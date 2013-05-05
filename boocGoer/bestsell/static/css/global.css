@@ -65,11 +65,15 @@ p {
   width:100%;
   height:100px;
 }
+#shout-table {
+  width:100%;
+  height:300px;
+}
 
 #view {
   width:278px;
   float:right;
-  height:600px;
+  height:1000px;
   overflow:auto;
   border:1px solid #ccc;
   padding:10px;

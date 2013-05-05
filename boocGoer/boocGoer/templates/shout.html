@@ -30,6 +30,27 @@
         </p>
       </form>
     </div>
+
+    <div id="shout-table">
+      <table>
+      <tr>
+        <th>   -#-   </th>
+        <th>   -TITLE-   </th>
+        <th>   -ISBN-    </th>
+
+      </tr>  
+      {% for shout in shouts %}
+      <tr>
+        <th> {{shout.id}}</th>
+        <th> {{shout.title}}</th>
+        <th> {{shout.isbn}}</th>
+      </tr> 
+      {% endfor %}
+      </table>
+    </div>
+
+
+
   
   </div>
   
@@ -39,8 +60,17 @@
       <form name="update_radius" id="update_radius">
         <input type="text" name="radius" id="radius" value="1" />
         <input type="submit" name="submit" value="Update Radius" />
+
       </form>
     </div>
+      
+
+
+
+
+
+
+    
     
     <div id="shouts"></div>
     
