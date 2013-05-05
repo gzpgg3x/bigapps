@@ -24,7 +24,7 @@
           <label for="bldate">Book List Date</label><br />
           <input type="text" name="bldate" id="bldate">
         </p>
-        <p class="error"></p>
+
         <p>
           <input type="submit" name="submit" value="boocGoer!" />
         </p>
@@ -32,19 +32,25 @@
     </div>
 
     <div id="shout-table">
+      
       <table>
       <tr>
         <th>   -#-   </th>
         <th>   -TITLE-   </th>
         <th>   -ISBN-    </th>
+        <th>   -BOOKLIST-    </th>
+        <th>   -DATE-    </th>
 
       </tr>  
       {% for shout in shouts %}
       <tr>
         <th> {{shout.id}}</th>
         <th> {{shout.title}}</th>
-        <th> {{shout.isbn}}</th>
-      </tr> 
+        <th> <a href="http://catalog.nypl.org/search~S1/?searchtype=i&searcharg={{shout.isbn}}" >{{shout.isbn}}</th>
+        <th> {{shout.booklist}}</th>
+        <th> {{shout.bldate}}</th>
+      </tr>
+
       {% endfor %}
       </table>
     </div>
