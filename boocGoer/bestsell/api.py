@@ -30,12 +30,14 @@ def new_shout(request):
     articles = json.loads(f.read())
     # print articles
     g=""
+    pubdate=""
     for story in articles["results"]:
         b = 0
         for book in story["isbns"]:
             if b == 0: 
                 try:
                     isbn = book["isbn10"]
+                    # pubdate = book["published_date"]
                     g = g + book["isbn10"] + "\n"
                     b = b + 1
                 except:
@@ -44,11 +46,14 @@ def new_shout(request):
         for book in story["book_details"]: 
             try:
                 title = book["title"]
+                author = book["author"]
+                description = book["description"]
+                publisher = book["publisher"]
                 g = g + book["title"] + "\n"
             except:
                 g = g + " \n"
 
-        shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate,isbn=isbn,title=title)
+        shout = Shout.objects.create(lat=lat,lng=lng,booklist=booklist,bldate=bldate,isbn=isbn,title=title,author=author,description=description,publisher=publisher)
 
         response = {
             'date_created': shout.date_created.strftime("%b %d at %I:%M:%S%p"),
@@ -57,7 +62,10 @@ def new_shout(request):
             'booklist': booklist,
             'bldate': bldate,
             'isbn': isbn,
-            'title': title
+            'title': title,
+            'author': author,
+            'description': description,
+            'publisher': publisher
         }
 
     # print g
