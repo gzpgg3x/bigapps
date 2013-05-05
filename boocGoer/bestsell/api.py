@@ -106,7 +106,10 @@ def get_shouts(request):
             'booklist': shout.booklist,
             'bldate': shout.bldate,
             'isbn': shout.isbn,
-            'title': shout.title            
+            'title': shout.title,
+            'author': shout.author,
+            'description': shout.description,
+            'publisher': shout.publisher
         })
     
     return HttpResponse(json.dumps(response))
